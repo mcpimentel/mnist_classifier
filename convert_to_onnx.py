@@ -15,7 +15,7 @@ def main():
     ckpt_standard = torch.load('checkpoint/LeNet_stadard60.pth.tar')
     pytorch_model.load_state_dict(ckpt_standard['state_dict'])
     pytorch_model.eval()
-    torch.onnx.export(pytorch_model, dummy_input, 'onnx_lenet_standard.onnx', verbose=True)
+    torch.onnx.export(pytorch_model, dummy_input, 'onnx_mdls/onnx_lenet_standard.onnx', verbose=True)
     
     # convert LeNet_dropout
     # pytorch_model = LeNet_dropout()
