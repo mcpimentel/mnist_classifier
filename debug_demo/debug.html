@@ -1,0 +1,39 @@
+<html>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/onnxjs/dist/onnx.min.js"></script>
+    <script>
+      function makeRangeIterator(start=0, end=Infinity, step=1) {
+        let nextIndex = start;
+        let iterationCount = 0;
+        const rangeIterator = {
+            next: function() {
+                let result;
+                if (nextIndex < end) {
+                    result = { value: nextIndex, done: false }
+                    nextIndex += step;
+                    iterationCount++;
+                    return result;
+                }
+                return { value: iterationCount, done: true }
+            }
+        };
+        return rangeIterator;
+      }
+      async function test() {
+        const sess = new onnx.InferenceSession()
+        await sess.loadModel('../onnx_mdls/onnx_lenet_standard.onnx')
+        const x = new Float32Array(280 * 280 * 4)
+        const input = new onnx.Tensor(x.fill(254), 'float32', [280 * 280 * 4])
+        const outputMap = await sess.run([input])
+        const outputTensor = outputMap.values().next().value
+        console.log(`Output tensor: ${outputTensor.data}`)
+      }
+      test()
+    </script>
+    <p>
+      The output of this debug demo is logged to the JavaScript
+      console. To view the output, open your browser's developer
+      tools window, and look under the "Console" tab.
+    </p>
+  </body>
+</html>
