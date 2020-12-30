@@ -109,7 +109,7 @@ class LeNet_manualdropout(nn.Module):
         outputs = torch.cat(outputs, 0)
         output_mean = outputs.mean(0)
         output_var = torch.sum((outputs-output_mean)**2, 0)/(N_SAMPLES-1)
-        return torch.cat([output_mean, torch.tensor([output_var.max()]).reshape([-1,1])], 1)
+        return torch.cat([output_mean, output_var], 1)
     
 
 class myrandom:
