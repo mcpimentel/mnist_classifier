@@ -48,13 +48,15 @@ and test the models using
 python main.py --mode 1
 ```
 
-Trained models are stored under `checkpoints`.
+Trained models are stored under `checkpoints/`.
 
 Finally, convert the trained PyTorch model into ONNX (I found [this tutorial](https://github.com/elliotwaite/pytorch-to-javascript-with-onnx-js) extremely useful; the web app is based on it).
 
 ```
 python convert_to_onnx.py
 ```
+
+Converted models are stored under `onnx_mdls/`.
 
 The PyTorch model description used to generate the ONNX models are defined in `models_inference.py`. 
 
