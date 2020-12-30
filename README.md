@@ -60,13 +60,30 @@ Converted models are stored under `onnx_mdls/`.
 
 The PyTorch model description used to generate the ONNX models are defined in `models_inference.py`. 
 
+
 #### Notes:
 
-* the stable version of ONNX does not support the usage of running inference in *trainingMode* (yet!), which is used for estimating the estimations' uncertainty; given this, we implemented a manual dropout strategy for inference (including a manual random number generator). Hopefully, in the future, this conversion can be easier, and won't need this number of workarounds.
+* The stable version of ONNX does not support the usage of running inference in *trainingMode* (yet!), which is used for estimating the estimations' uncertainty; given this, we implemented a manual dropout strategy for inference (including a manual random number generator). Hopefully, in the future, this conversion can be easier, and won't need this number of workarounds.
 
-* onnx *opset_version:12* allows the usage of *trainingMode*, but, it is not stable; from a quick look, some operators are a bit flaky. 
+* ONNX *opset_version:12* allows the usage of *trainingMode*, but, it is not stable; from a quick look, some operators are a bit flaky. 
+
+* Because of this limitation, we are only sampling from the model **5** times during the conversion. Ideally, we should do it for more runs (such as 100). 
 
 
 #### Debug demo 
 
-* `debug_demo`: a *debug test* to see if the generated ONNX model works. If you are using VSCode, you can use the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension.
+The `debug_demo` contains a *debug test* to see if the generated ONNX model works. If you are using VSCode, you can use the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension.
+
+If you see an error in loading the file, try to move the *onnx* models to the `debug_demo` directory, and change the following line of code of `debug.html`:
+
+```
+await sess.loadModel('../onnx_mdls/onnx_lenet_standard.onnx')
+```
+
+to 
+
+```
+await sess.loadModel('./onnx_lenet_standard.onnx')
+```
+
+
