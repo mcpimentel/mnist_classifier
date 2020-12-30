@@ -67,4 +67,4 @@ The PyTorch model description used to generate the ONNX models are defined in `m
 
 #### Debug demo 
 
-* `debug_demo`: a *debug test* to see if the generated ONNX model works. If you are using VSCode, you can use the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
+* `debug_demo`: a *debug test* to see if the generated ONNX model works. If you are using VSCode, you can use the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension.
